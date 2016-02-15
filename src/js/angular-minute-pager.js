@@ -8,7 +8,7 @@
                 replace: true,
                 scope: {angularMinutePager: '='},
                 template: '<div class="angular-pager"><div class="pull-left"><div class="numitems">' +
-                '<select class="form-control input-sm simple" ng-model="obj.limit" ng-options="item as format(item) for item in obj.limits | orderBy: item"></select>' +
+                '<select class="form-control input-sm simple" ng-model="obj.limit" ng-show="obj.limit" ng-options="item as format(item) for item in obj.limits | orderBy: item"></select>' +
                 '</div></div><div class="pull-right"><nav ng-show="obj.total > 1"><ul class="pagination">' +
                 '<li ng-class="{disabled: obj.page == 1}"><a href="" ng-click="obj.page = 1"><i class="fa fa-step-backward fa-lg"></i></a></li>' +
                 '<li ng-class="{disabled: obj.page == 1}"><a href="" ng-click="goto(-1)"><i class="fa fa-caret-left fa-lg"></i></a></li><li><a href="">Page ' +
@@ -16,9 +16,9 @@
                 'of {{obj.total}}</a></li>' +
                 '<li ng-class="{disabled: obj.page == obj.total}"><a href="" ng-click="goto(1)"><i class="fa fa-caret-right fa-lg"></i></a></li>' +
                 '<li ng-class="{disabled: obj.page == obj.total}"><a href="" ng-click="obj.page = obj.total"><i class="fa fa-step-forward fa-lg"></i></a></li></ul>' +
-                '</nav><span ng-show="obj.total < 2" class="text-muted">{{obj.count || 0}} items.</span></div><div class="clearfix"></div></div>',
+                '</nav><div class="numitems text-muted" ng-show="!obj.total || (obj.total < 2)">{{obj.count || 0}} items.</div></div><div class="clearfix"></div></div>',
                 link: function ($scope, element, attrs) {
-                    $scope.obj = {limits: [5, 10, 15, 20, 25, 30, 1000]};
+                    $scope.obj = {limits: [5, 10, 15, 20, 25, 30, 1000], total: 0};
 
                     $scope.format = function (num) {
                         return 'Show ' + (num > 999 ? 'all items' : num + ' items / page');
